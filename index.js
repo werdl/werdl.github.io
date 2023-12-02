@@ -73,7 +73,7 @@ function switch_slide() {
         
         fetchRepoInfo(owner, tag)
             .then(description => {
-                document.getElementById('desc').textContent = description[0] || 'No description available.';
+                document.getElementById('desc').textContent = description[0] || 'I forgot to put a description here.';
 
                 default_branch=description[1]
                 console.log(description)
