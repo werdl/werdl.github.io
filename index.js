@@ -82,7 +82,8 @@ function switch_slide() {
 
 
 }
-const accessToken = process.env.GH_ACCESS_TOKEN
+const accessToken = "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"
+// please don't take, from a burner account
 async function fetchRepoInfo(username, repo) {
     const response = await fetch(`https://api.github.com/repos/${username}/${repo}`, {
         headers: {
