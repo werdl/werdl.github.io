@@ -82,7 +82,7 @@ function switch_slide() {
 
 
 }
-const accessToken = "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"
+const accessToken = "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"
 // please don't take, from a burner account
 async function fetchRepoInfo(username, repo) {
     const response = await fetch(`https://api.github.com/repos/${username}/${repo}`, {
