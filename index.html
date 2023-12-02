@@ -158,11 +158,20 @@
             pointer-events: none;
             color: #6eac6e
         }
+        @keyframes flash {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
 
+        h1::after,h2::after,h3::after {
+            content: "_";
+            animation: flash 1s infinite; /* Adjust the duration as needed */
+        }
     </style>
     <script src="index.js"></script>
 </head>
 <body>
+    <style id="dynamic-css"></style>
     <div class="wrapper">
         <div class="sidebar">
             <div class="notprofile">
@@ -190,7 +199,6 @@
         </div>
         <div class="main">
             <div class="header" id="header">
-                Portfolio
             </div>
             <div class="content">
                 <div id="languageBox" class="language-box"></div>

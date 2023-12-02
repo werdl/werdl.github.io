@@ -60,36 +60,35 @@ function switch_slide() {
     document.getElementById("next").innerHTML=`Next (${slides[current_slide+1].split(";")[0]})`
     document.getElementById("projectcount").innerHTML=`${slides.indexOf(cur)}/${slides.length-2}`
 
+
+    document.getElementById("header").innerHTML = `<h2><a href='https://github.com/${owner}/${tag}' id='title'>`+"</a></h2>"
+    scramble("title", name_repo)
+
+
     fetchLangs(owner, tag)
     .then(data => {
         updateLanguageInfo(data)
     })
+
+    fetchCommits(owner, tag)
+                .then(loc => {
+                    console.log(document.getElementById('commits').innerHTML)
+                    document.getElementById('commits').innerHTML=`<b>${loc}</b> commit${loc==1?"":"s"} on this repo`
+                })
+    fetchRepoInfo(owner, tag)
+                .then(description => {
+                    document.getElementById('desc').textContent = description[0] || 'I forgot to put a description here.';
+    
+                    default_branch=description[1]
+                    console.log(description)
+    
+                    
+                }).catch(error => console.error('Error fetching repository information:', error))
     
         // Fetch README content and render it in HTML
         fetchReadmeContent(owner, tag)
             .then(renderHTML)
             .catch(error => console.error('Error fetching README:', error));
-
-        
-        fetchRepoInfo(owner, tag)
-            .then(description => {
-                document.getElementById('desc').textContent = description[0] || 'I forgot to put a description here.';
-
-                default_branch=description[1]
-                console.log(description)
-
-                fetchCommits(owner, tag)
-                .then(loc => {
-                    console.log(document.getElementById('commits').innerHTML)
-                    document.getElementById('commits').innerHTML=`<b>${loc}</b> commit${loc==1?"":"s"} on this repo`
-                })
-            })
-            .catch(error => console.error('Error fetching repository information:', error))
-        
-    document.getElementById("header").innerHTML = `<h2><a href='https://github.com/${owner}/${tag}'>`+name_repo+"</a></h2>"
-
-
-
 }
 const accessToken = "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"
 // please don't take, from a burner account
@@ -162,7 +161,7 @@ function updateLanguageInfo(data) {
             const languageElement = document.createElement('div');
             languageElement.classList.add('language');
             languageElement.innerHTML = `
-                <span class="language-name" style="color: ${randomColor};">${language}</span>
+                <span id="lang" class="language-name" style="color: ${randomColor};">${language}</span>
                 <span class="language-percent">${Math.round(parseFloat(percent) * 10) / 10}%</span>
             `;
 
@@ -235,5 +234,37 @@ window.onload=function () {
     slides=prependArray("n/a;", slides)
     slides.push("n/a;")
     switch_slide();
-
 }
+
+async function scramble(s, content) {
+
+    async function revealTextWithDelay(selector) {
+      const text = content
+      const element = document.getElementById(selector);
+      const revealDuration = text.length * 100;
+      const revealInterval = revealDuration / text.length;
+
+      // Add a random delay
+      const randomDelay = Math.random() * 100; // Adjust the maximum delay as needed
+      await new Promise(resolve => setTimeout(resolve, randomDelay));
+
+      let index = 0;
+
+      function revealCharacter() {
+        if (index <= text.length) {
+          const partialText = text.slice(0, index);
+          element.textContent = partialText;
+          index++;
+          setTimeout(revealCharacter, revealInterval);
+        }
+      }
+
+      revealCharacter();
+    }
+
+    // Apply the effect to each selector with a random short delay
+    await revealTextWithDelay(s);
+    
+  }
+    
+  
