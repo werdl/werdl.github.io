@@ -92,6 +92,7 @@ async function fetchRepoInfo(username, repo) {
 async function fetchReadmeContent(username, repo) {
     const response = await fetch(`https://api.github.com/repos/${username}/${repo}/readme`);
     const data = await response.json();
+    console.log(data)
     return atob(data.content).error(
         data.content
     ); // Decode base64-encoded content
