@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>werdl's Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Add Font Awesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #fff;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: space-between;
+            transition: background-color 0.5s, color 0.5s;
+            margin: 20px;
+        }
+
+        .sidebar {
+            width: 25%;
+            height: 55%;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 18px;
+            background-color: #444;
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .main {
+            width: 65%;
+            min-height: 90vh;
+            background-color: #555;
+            border: 1px solid #666;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #fff;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #2073c8;
+        }
+
+        .button {
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #2073c8;
+        }
+
+        .profile-image {
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        #projectcount {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .language-box {
+            background-color: #444;
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 16px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .language {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .language-name {
+            font-weight: bold;
+        }
+
+        .language-percent {
+            font-size: 14px;
+            color: #7e8b9b;
+        }
+
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            overflow: auto;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="notprofile">
+                <div class="buttons">
+                    <button id="previous" class="button" onclick="back_a_slide()">Previous</button>
+                    <button id="next" class="button" onclick="switch_slide()">Next</button>
+                </div>
+                
+                <br>
+                <br>
+                <div id="projectcount"></div>
+                <br>
+                <h2>werdl's Portfolio</h2>
+                <p>Hi! I'm werdl, an aspiring developer who enjoys coding with these languages:</p>
+                <ul>
+                    <li>C</li>
+                    <li>Python</li>
+                    <li>V</li>
+                    <li>Nim</li>
+                </ul>
+            </div>
+            <a href="https://github.com/werdl">
+                <img src="back.jpeg" alt="Profile Image" class="profile-image">
+            </a>
+        </div>
+        <div class="main">
+            <div class="header" id="header">
+                Portfolio
+            </div>
+            <div class="content">
+                <div id="languageBox" class="language-box"></div>
+                <br>
+                <div id="desc"></div>
+                <br>
+                <div id="readme"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
