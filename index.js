@@ -41,7 +41,6 @@ slides = [
     "browser;werdl/browser",
     "pyt;werdl/pyt",
     "samik;werdl/samik",
-    "img;werdl/img",
     "chat;werdl/chat",
     "bottles;werdl/bottles"
 ]
@@ -74,9 +73,19 @@ function switch_slide() {
         
         fetchRepoInfo(owner, tag)
             .then(description => {
-                document.getElementById('desc').textContent = description || 'No description available.';
+                document.getElementById('desc').textContent = description[0] || 'No description available.';
+
+                default_branch=description[1]
+                console.log(description)
+
+                fetchCommits(owner, tag)
+                .then(loc => {
+                    console.log(document.getElementById('commits').innerHTML)
+                    document.getElementById('commits').innerHTML=`<b>${loc}</b> commit${loc==1?"":"s"} on this repo`
+                })
             })
             .catch(error => console.error('Error fetching repository information:', error))
+        
     document.getElementById("header").innerHTML = `<h2><a href='https://github.com/${owner}/${tag}'>`+name_repo+"</a></h2>"
 
 
@@ -91,11 +100,23 @@ async function fetchRepoInfo(username, repo) {
         },
     });
     const data = await response.json();
-    return data.description;
+    console.log(data)
+    return [data.description, data.default_branch];
 }
+
 
 async function fetchLangs(username, repo) {
     const response = await fetch(`https://github-api-proxy--werdliscool.repl.co/?route=https://api.github.com/repos/${username}/${repo}/languages`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    const data = await response.json();
+    return data;
+}
+
+async function fetchCommits(username, repo) {
+    const response = await fetch(`https://github-api-proxy--werdliscool.repl.co/commits?user=${username}&repo=${repo}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },

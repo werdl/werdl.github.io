@@ -7,12 +7,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Add Font Awesome for icons -->
     <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
     <style>
+        @font-face {
+            font-family: 'Retro Gaming';
+            src: url('fonts/RetroGaming.eot');
+            src: url('fonts/RetroGaming.eot?#iefix') format('embedded-opentype'),
+                url('fonts/RetroGaming.woff2') format('woff2'),
+                url('fonts/RetroGaming.woff') format('woff'),
+                url('fonts/RetroGaming.svg#RetroGaming') format('svg'),
+                url('fonts/Retro\ Gaming.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+  
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Retro Gaming'; 
             margin: 0;
             padding: 0;
-            background-color: #333;
-            color: #fff;
+            background-color: #000;
+            color: #0f0;
             transition: background-color 0.5s, color 0.5s;
         }
 
@@ -29,8 +42,8 @@
             position: -webkit-sticky;
             position: sticky;
             top: 18px;
-            background-color: #444;
-            border: 1px solid #555;
+            background-color: #000;
+            border: 10px solid #005500;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -39,32 +52,33 @@
         .main {
             width: 65%;
             min-height: 90vh;
-            background-color: #555;
-            border: 1px solid #666;
+            background-color: #000;
+            border: 10px solid #005500;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1, h2, h3 {
-            color: #fff;
+            color: #0f0;
         }
 
         a {
-            color: #3498db;
+            color: #51ff51;
             text-decoration: none;
         }
 
         a:hover {
-            color: #2073c8;
+            color: #00aa00;
         }
 
         .button {
             display: inline-block;
             transition: background-color 0.3s, color 0.3s;
-            color: #fff;
-            background-color: #3498db;
-            border: none;
+            color: #0f0;
+            font-family: 'Retro Gaming';
+            background-color: #007700;
+            border: 5px solid #00aa00;
             border-radius: 4px;
             padding: 10px 20px;
             margin: 10px 5px;
@@ -72,13 +86,14 @@
         }
 
         .button:hover {
-            background-color: #2073c8;
+            background-color: #00aa00;
         }
 
         .profile-image {
             width: 100px;
             border-radius: 50%;
             margin-bottom: 20px;
+            border: 7px solid #00ff00
         }
 
         ul {
@@ -96,8 +111,8 @@
         }
 
         .language-box {
-            background-color: #444;
-            border: 1px solid #555;
+            background-color: #005500;
+            border: 1px solid #007700;
             border-radius: 6px;
             padding: 16px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -108,7 +123,7 @@
         .language {
             font-size: 16px;
             margin-bottom: 8px;
-            color: #fff;
+            color: #0f0;
         }
 
         .language-name {
@@ -117,19 +132,21 @@
 
         .language-percent {
             font-size: 14px;
-            color: #7e8b9b;
+            color: #007700;
         }
 
         pre {
-            background-color: #333;
-            color: #fff;
+            background-color: #000;
+            color: #0f0;
             padding: 10px;
             border-radius: 4px;
             overflow: auto;
+            border: 1px solid #007700;
         }
 
         code {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: monospace;
+            color: #0f0;
         }
     </style>
     <script src="index.js"></script>
@@ -147,7 +164,7 @@
                 <br>
                 <div id="projectcount"></div>
                 <br>
-                <h2>werdl's Portfolio</h2>
+                <h2>werdl's portfolio</h2>
                 <p>Hi! I'm werdl, an aspiring developer who enjoys coding with these languages:</p>
                 <ul>
                     <li>C</li>
@@ -166,6 +183,8 @@
             </div>
             <div class="content">
                 <div id="languageBox" class="language-box"></div>
+                <br>
+                <div id="commits"></div>
                 <br>
                 <div id="desc"></div>
                 <br>
