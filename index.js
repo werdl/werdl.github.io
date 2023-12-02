@@ -178,12 +178,11 @@ function getTotalBytes(data) {
 
 // Helper function to generate a random color
 function getRandomColor() {
-    const letters = '6789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 10)];
-    }
-    return color;
+
+
+    x= `rgb(${Math.round(Math.random()*100)},${Math.round(Math.random()*100)+155},${Math.round(Math.random()*150)});`;
+    console.log(x)
+    return x
 }
 
 isdark=false;
