@@ -61,11 +61,10 @@ function switch_slide() {
     document.getElementById("next").innerHTML=`Next (${slides[current_slide+1].split(";")[0]})`
     document.getElementById("projectcount").innerHTML=`${slides.indexOf(cur)}/${slides.length-2}`
 
-    fetch(`https://api.github.com/repos/${owner}/${tag}/languages`)
-        .then(response => response.json())
-        .then(data => updateLanguageInfo(data))
-        .catch(error => console.error('Error fetching data:', error));
-        // Replace 'your-username' and 'your-repo' with the actual GitHub username and repository name
+    fetchLangs(owner, tag)
+    .then(data => {
+        updateLanguageInfo(data)
+    })
     
         // Fetch README content and render it in HTML
         fetchReadmeContent(owner, tag)
@@ -83,21 +82,37 @@ function switch_slide() {
 
 
 }
+const accessToken = process.env.GH_ACCESS_TOKEN
 async function fetchRepoInfo(username, repo) {
-    const response = await fetch(`https://api.github.com/repos/${username}/${repo}`);
+    const response = await fetch(`https://api.github.com/repos/${username}/${repo}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
     const data = await response.json();
     return data.description;
 }
 
-async function fetchReadmeContent(username, repo) {
-    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/readme`);
+async function fetchLangs(username, repo) {
+    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/languages`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
     const data = await response.json();
-    console.log(data)
-    return atob(data.content).error(
-        data.content
-    ); // Decode base64-encoded content
+    return data;
 }
 
+async function fetchReadmeContent(username, repo) {
+    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/readme`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    const data = await response.json();
+    console.log(data);
+    return atob(data.content) // Decode base64-encoded content
+}
 // Function to render HTML content using Showdown library
 function renderHTML(markdownContent) {
     const converter = new showdown.Converter();
