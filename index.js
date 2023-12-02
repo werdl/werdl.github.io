@@ -85,7 +85,7 @@ function switch_slide() {
 const accessToken = "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"
 // please don't take, from a burner account
 async function fetchRepoInfo(username, repo) {
-    const response = await fetch(`https://api.github.com/repos/${username}/${repo}`, {
+    const response = await fetch(`https://github-api-proxy--werdliscool.repl.co/?route=https://api.github.com/repos/${username}/${repo}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
@@ -95,7 +95,7 @@ async function fetchRepoInfo(username, repo) {
 }
 
 async function fetchLangs(username, repo) {
-    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/languages`, {
+    const response = await fetch(`https://github-api-proxy--werdliscool.repl.co/?route=https://api.github.com/repos/${username}/${repo}/languages`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
@@ -105,13 +105,12 @@ async function fetchLangs(username, repo) {
 }
 
 async function fetchReadmeContent(username, repo) {
-    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/readme`, {
+    const response = await fetch(`https://github-api-proxy--werdliscool.repl.co/?route=https://api.github.com/repos/${username}/${repo}/readme`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
     });
     const data = await response.json();
-    console.log(data);
     return atob(data.content) // Decode base64-encoded content
 }
 // Function to render HTML content using Showdown library
