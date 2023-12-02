@@ -92,7 +92,9 @@ async function fetchRepoInfo(username, repo) {
 async function fetchReadmeContent(username, repo) {
     const response = await fetch(`https://api.github.com/repos/${username}/${repo}/readme`);
     const data = await response.json();
-    return atob(data.content); // Decode base64-encoded content
+    return atob(data.content).error(
+        data.content
+    ); // Decode base64-encoded content
 }
 
 // Function to render HTML content using Showdown library
