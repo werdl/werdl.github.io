@@ -287,9 +287,10 @@ document.addEventListener("DOMContentLoaded", function () {
         drops[i] = Math.random() * canvas.height;
     }
 
+    const fallingText="loading"
+
     // Setting up the draw function
     async function draw() {
-        const fallingText="loading"
         ctx.fillStyle = 'rgba(0, 0, 0, .1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -311,7 +312,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 drops[i] = 0;
             }
         }
-    }
+    }  
+
+    canvas.addEventListener("click", function (event) {
+        var mouseX = event.clientX - canvas.getBoundingClientRect().left;
+        var mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+        if (
+            mouseX >= skipButton.x &&
+            mouseX <= skipButton.x + skipButton.width &&
+            mouseY >= skipButton.y &&
+            mouseY <= skipButton.y + skipButton.height
+        ) {
+            skipAnimation = true;
+        }
+    });
 
     setInterval(draw, 33)
     const x = setTimeout(function () {
