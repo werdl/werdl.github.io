@@ -1,26 +1,26 @@
-current_slide=0;
+current_slide = 0;
 
 function back_a_slide() {
-    current_slide-=2;
+    current_slide -= 2;
     switch_slide();
 }
 function shuffle(array) {
-    let currentIndex = array.length,  randomIndex;
-  
+    let currentIndex = array.length, randomIndex;
+
     // While there remain elements to shuffle.
     while (currentIndex > 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
-  }
+}
 slides = [
     "blueberryos;spartanproj/os",
     "dispatch-x;dispatch-x/api",
@@ -47,48 +47,48 @@ slides = [
 function switch_slide() {
     current_slide++
 
-    let cur=slides[current_slide]
-    
-    semi=cur.split(";")
-    name_repo=semi[0]
-    link=semi[1].split("/")
-    owner=link[0]
-    tag=link[1]
+    let cur = slides[current_slide]
 
-    prev=slides[current_slide-1].split(";")[0]
-    document.getElementById("previous").innerHTML=`Previous (${prev})`
-    document.getElementById("next").innerHTML=`Next (${slides[current_slide+1].split(";")[0]})`
-    document.getElementById("projectcount").innerHTML=`${slides.indexOf(cur)}/${slides.length-2}`
+    semi = cur.split(";")
+    name_repo = semi[0]
+    link = semi[1].split("/")
+    owner = link[0]
+    tag = link[1]
+
+    prev = slides[current_slide - 1].split(";")[0]
+    document.getElementById("previous").innerHTML = `Previous (${prev})`
+    document.getElementById("next").innerHTML = `Next (${slides[current_slide + 1].split(";")[0]})`
+    document.getElementById("projectcount").innerHTML = `${slides.indexOf(cur)}/${slides.length - 2}`
 
 
-    document.getElementById("header").innerHTML = `<h2><a href='https://github.com/${owner}/${tag}' id='title'>`+"</a></h2>"
+    document.getElementById("header").innerHTML = `<h2><a href='https://github.com/${owner}/${tag}' id='title'>` + "</a></h2>"
     scramble("title", name_repo)
 
 
     fetchLangs(owner, tag)
-    .then(data => {
-        updateLanguageInfo(data)
-    })
+        .then(data => {
+            updateLanguageInfo(data)
+        })
 
     fetchCommits(owner, tag)
-                .then(loc => {
-                    console.log(document.getElementById('commits').innerHTML)
-                    document.getElementById('commits').innerHTML=`<b>${loc}</b> commit${loc==1?"":"s"} on this repo`
-                })
+        .then(loc => {
+            console.log(document.getElementById('commits').innerHTML)
+            document.getElementById('commits').innerHTML = `<b>${loc}</b> commit${loc == 1 ? "" : "s"} on this repo`
+        })
     fetchRepoInfo(owner, tag)
-                .then(description => {
-                    document.getElementById('desc').textContent = description[0] || 'I forgot to put a description here.';
-    
-                    default_branch=description[1]
-                    console.log(description)
-    
-                    
-                }).catch(error => console.error('Error fetching repository information:', error))
-    
-        // Fetch README content and render it in HTML
-        fetchReadmeContent(owner, tag)
-            .then(renderHTML)
-            .catch(error => console.error('Error fetching README:', error));
+        .then(description => {
+            document.getElementById('desc').textContent = description[0] || 'I forgot to put a description here.';
+
+            default_branch = description[1]
+            console.log(description)
+
+
+        }).catch(error => console.error('Error fetching repository information:', error))
+
+    // Fetch README content and render it in HTML
+    fetchReadmeContent(owner, tag)
+        .then(renderHTML)
+        .catch(error => console.error('Error fetching README:', error));
 }
 const accessToken = "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"
 // please don't take, from a burner account
@@ -179,12 +179,12 @@ function getTotalBytes(data) {
 function getRandomColor() {
 
 
-    x= `rgb(${Math.round(Math.random()*100)},${Math.round(Math.random()*100)+155},${Math.round(Math.random()*150)});`;
+    x = `rgb(${Math.round(Math.random() * 100)},${Math.round(Math.random() * 100) + 155},${Math.round(Math.random() * 150)});`;
     console.log(x)
     return x
 }
 
-isdark=false;
+isdark = false;
 
 function getContrastColor(hexColor) {
     const r = parseInt(hexColor.slice(1, 3), 16);
@@ -203,15 +203,15 @@ function toggleDarkMode() {
     body.classList.toggle('dark-mode');
     wrapper.classList.toggle('dark-mode');
 
-    
-    
+
+
     // Apply text color based on background brightness
     buttons.forEach(button => {
         const bgColor = window.getComputedStyle(button).getPropertyValue('background-color');
         const contrastColor = getContrastColor(bgColor);
         button.style.color = contrastColor;
     });
-    isdark=!isdark;
+    isdark = !isdark;
     if (isdark) {
         body.style.backgroundColor = "#222";
 
@@ -221,50 +221,107 @@ function toggleDarkMode() {
 }
 function prependArray(value, oldArray) {
     var newArray = new Array(value);
-  
-    for(var i = 0; i < oldArray.length; ++i) {
-      newArray.push(oldArray[i]);
-    }
-  
-    return newArray;
-}
 
-window.onload=function () {
-    shuffle(slides)
-    slides=prependArray("n/a;", slides)
-    slides.push("n/a;")
-    switch_slide();
+    for (var i = 0; i < oldArray.length; ++i) {
+        newArray.push(oldArray[i]);
+    }
+
+    return newArray;
 }
 
 async function scramble(s, content) {
 
     async function revealTextWithDelay(selector) {
-      const text = content
-      const element = document.getElementById(selector);
-      const revealDuration = text.length * 100;
-      const revealInterval = revealDuration / text.length;
+        const text = content
+        const element = document.getElementById(selector);
+        const revealDuration = text.length * 100;
+        const revealInterval = revealDuration / text.length;
 
-      // Add a random delay
-      const randomDelay = Math.random() * 100; // Adjust the maximum delay as needed
-      await new Promise(resolve => setTimeout(resolve, randomDelay));
+        // Add a random delay
+        const randomDelay = Math.random() * 100; // Adjust the maximum delay as needed
+        await new Promise(resolve => setTimeout(resolve, randomDelay));
 
-      let index = 0;
+        let index = 0;
 
-      function revealCharacter() {
-        if (index <= text.length) {
-          const partialText = text.slice(0, index);
-          element.textContent = partialText;
-          index++;
-          setTimeout(revealCharacter, revealInterval);
+        function revealCharacter() {
+            if (index <= text.length) {
+                const partialText = text.slice(0, index);
+                element.textContent = partialText;
+                index++;
+                setTimeout(revealCharacter, revealInterval);
+            }
         }
-      }
 
-      revealCharacter();
+        revealCharacter();
     }
 
     // Apply the effect to each selector with a random short delay
     await revealTextWithDelay(s);
-    
-  }
-    
-  
+
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("wrapper").style.display = "none"
+    // Initialising the canvas
+    var canvas = document.querySelector('canvas'),
+        ctx = canvas.getContext('2d');
+
+    // Setting the width and height of the canvas
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Setting up the letters
+    var letters = '01';
+    for (let j = 0; j < 100; j++) {
+        letters += Math.round(Math.random()) == 0 ? "0" : "1"
+    }
+    letters = letters.split('');
+
+    // Setting up the columns
+    var fontSize = 10,
+        columns = canvas.width / fontSize;
+
+    // Setting up the drops
+    var drops = [];
+    for (var i = 0; i < columns; i++) {
+        drops[i] = Math.random() * canvas.height;
+    }
+
+    // Setting up the draw function
+    async function draw() {
+        const fallingText="loading"
+        ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw centered text
+        ctx.fillStyle = '#0f0';
+        ctx.font = '60px Retro Gaming'; // Adjust the font size and style as needed
+        ctx.textAlign = 'center';
+        ctx.fillText(fallingText, canvas.width / 2, canvas.height / 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+        ctx.font = '15px Retro Gaming'
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < drops.length; i++) {
+            var text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillStyle = '#0f0';
+            ctx.font = 'Retro Gaming'
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            drops[i]++;
+            if (drops[i] * fontSize > canvas.height && Math.random() > .95) {
+                drops[i] = 0;
+            }
+        }
+    }
+
+    setInterval(draw, 33)
+    const x = setTimeout(function () {
+        document.getElementById("letters").style.display = "none"
+        shuffle(slides)
+        slides = prependArray("n/a;", slides)
+        slides.push("n/a;")
+        document.getElementById("wrapper").style.display = "flex"
+        switch_slide();
+    }, (Math.random() * 3000) + 4000)
+
+
+})
