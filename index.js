@@ -1,7 +1,15 @@
 current_slide = 0;
 
 function back_a_slide() {
-    current_slide -= 2;
+    cur_text=document.getElementById("header").textContent
+    current_slide = Math.max(0, current_slide - 2);
+    if (document.getElementById("previous").innerHTML=="Previous (info)") {
+        document.getElementById("previous").innerHTML="First slide..."
+        document.getElementById("next").innerHTML=`Next (${cur_text})`
+        showDesc();
+        document.getElementById("previous").classList.add("disabled")
+        return
+    } 
     switch_slide();
 }
 function shuffle(array) {
@@ -44,20 +52,71 @@ slides = [
     "chat;werdl/chat",
     "bottles;werdl/bottles"
 ]
+
+function showDesc() {
+    document.getElementById("header").innerHTML=`    <h2>werdl's portfolio</h2>
+    `
+    document.getElementById("content").innerHTML=`
+    <p>Hi! I'm werdl, an aspiring developer who enjoys coding low level stuff (and the odd website)</p>
+    <h3>My Skills</h3>
+    <ul>
+        <li><a href="http://gcc.gnu.org">C</a></li>
+        <li><a href="http://python.org">Python</a></li>
+        <li><a href="http://vlang.io">V</a></li>
+    </ul>
+    <br>
+    <ul>
+        <li><a href="http://git-scm.com">Git</a></li>
+        <li><a href="http://github.com">Github</a></li>
+        <li><a href="http://gnu.org/software/make">Makefile</a></li>
+        <li><a href="http://code.visualstudio.com">VS Code</a></li>
+        <li><a href="http://neovim.io">Neovim</a></li>
+    </ul>
+    <br>
+    <ul>
+        <li><a href="http://debian.org">Debian</a></li>    
+        <li><a href="https://en.wikipedia.org/wiki/Unix">Unix</a></li>
+    </ul>`
+}
+
+function hideDesc() {
+    document.getElementById("content").innerHTML = `
+    <div id="languageBox" class="language-box"></div>
+    <br>
+    <div id="commits"></div>
+    <br>
+    <div id="desc"></div>
+    <br>
+    <div id="readme"></div>
+    `
+}
 function switch_slide() {
-    current_slide++
+    hideDesc();
+    current_slide++;
 
-    let cur = slides[current_slide]
+    let cur = slides[current_slide];
 
+
+
+    console.log(typeof cur);
     semi = cur.split(";")
     name_repo = semi[0]
     link = semi[1].split("/")
     owner = link[0]
     tag = link[1]
-
     prev = slides[current_slide - 1].split(";")[0]
+
+    document.getElementById("previous").classList.remove("disabled")
+    next=slides[current_slide + 1].toString().split(";")[0]
+    if (prev=="n/a") {
+        document.getElementById("next").classList.add("disabled")
+    } else {
+        document.getElementById("next").classList.remove("disabled")
+    }
+    
+
     document.getElementById("previous").innerHTML = `Previous (${prev})`
-    document.getElementById("next").innerHTML = `Next (${slides[current_slide + 1].split(";")[0]})`
+    document.getElementById("next").innerHTML = `Next (${next})`
     document.getElementById("projectcount").innerHTML = `${slides.indexOf(cur)}/${slides.length - 2}`
 
 
@@ -287,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
         drops[i] = Math.random() * canvas.height;
     }
 
-    const fallingText="loading"
+    const fallingText = "loading"
 
     // Setting up the draw function
     async function draw() {
@@ -312,30 +371,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 drops[i] = 0;
             }
         }
-    }  
+    }
 
-    canvas.addEventListener("click", function (event) {
-        var mouseX = event.clientX - canvas.getBoundingClientRect().left;
-        var mouseY = event.clientY - canvas.getBoundingClientRect().top;
-
-        if (
-            mouseX >= skipButton.x &&
-            mouseX <= skipButton.x + skipButton.width &&
-            mouseY >= skipButton.y &&
-            mouseY <= skipButton.y + skipButton.height
-        ) {
-            skipAnimation = true;
-        }
-    });
 
     setInterval(draw, 33)
     const x = setTimeout(function () {
         document.getElementById("letters").style.display = "none"
         shuffle(slides)
-        slides = prependArray("n/a;", slides)
+        slides = prependArray("info;ignore/ignore", slides)
         slides.push("n/a;")
+        showDesc();
         document.getElementById("wrapper").style.display = "flex"
-        switch_slide();
     }, (Math.random() * 3000) + 4000)
 
 

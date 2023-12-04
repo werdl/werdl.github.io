@@ -42,23 +42,10 @@
             margin: 20px;
         }
 
-        .sidebar {
-            width: 30%;
-            height: 55%;
-            position: -webkit-sticky;
-            position: sticky;
-            top: 20px;
-            background-color: #000;
-            border: 10px solid #005500;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
         .main {
-            width: 65%;
-            min-height: 90vh;
             background-color: #000;
+            width: 100vw;
+            min-height: 95vh;
             border: 10px solid #005500;
             border-radius: 8px;
             padding: 20px;
@@ -161,7 +148,6 @@
         }
 
         @keyframes flash {
-
             0%,
             100% {
                 opacity: 0;
@@ -228,6 +214,14 @@
         canvas {
             display: block;
         }
+
+        .button.disabled {
+            pointer-events: none;
+            background-color: #333;
+        }
+        .button {
+            pointer-events: auto;
+        }
     </style>
     <script src="index.js"></script>
 </head>
@@ -236,51 +230,16 @@
     <canvas id="letters">
     </canvas>
     <div class="wrapper" id="wrapper">
-        <div class="sidebar">
-            <div class="notprofile">
-                <div class="buttons">
-                    <button id="previous" class="button" onclick="back_a_slide()">Previous</button>
-                    <button id="next" class="button" onclick="switch_slide()">Next</button>
-                </div>
-
-                <br>
-                <br>
-                <div id="projectcount"></div>
-                <br>
-                <h2>werdl's portfolio</h2>
-                <p>Hi! I'm werdl, an aspiring developer who enjoys coding low level stuff (and the odd website)</p>
-                <h3>My Skills</h3>
-                <ul>
-                    <li><a href="http://gcc.gnu.org">C</a></li>
-                    <li><a href="http://python.org">Python</a></li>
-                    <li><a href="http://vlang.io">V</a></li>
-                </ul>
-                <br>
-                <ul>
-                    <li><a href="http://git-scm.com">Git</a></li>
-                    <li><a href="http://github.com">Github</a></li>
-                    <li><a href="http://gnu.org/software/make">Makefile</a></li>
-                    <li><a href="http://code.visualstudio.com">VS Code</a></li>
-                    <li><a href="http://neovim.io">Neovim</a></li>
-                </ul>
-                <br>
-                <ul>
-                    <li><a href="http://debian.org">Debian</a></li>    
-                    <li><a href="https://en.wikipedia.org/wiki/Unix">Unix</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="main">
+            <div class="buttons">
+                    <button id="previous" class="button disabled" onclick="back_a_slide()">First slide...</button>
+                    <button id="next" class="button" onclick="switch_slide()">Next</button>
+                    <div id="projectcount"></div>
+            </div>
             <div class="header" id="header">
             </div>
-            <div class="content">
-                <div id="languageBox" class="language-box"></div>
-                <br>
-                <div id="commits"></div>
-                <br>
-                <div id="desc"></div>
-                <br>
-                <div id="readme"></div>
+            <div class="content" id="content">
+
             </div>
         </div>
     </div>
