@@ -98,7 +98,6 @@ function switch_slide() {
 
 
 
-    console.log(typeof cur);
     semi = cur.split(";")
     name_repo = semi[0]
     link = semi[1].split("/")
@@ -108,11 +107,7 @@ function switch_slide() {
 
     document.getElementById("previous").classList.remove("disabled")
     next=slides[current_slide + 1].toString().split(";")[0]
-    if (prev=="n/a") {
-        document.getElementById("next").classList.add("disabled")
-    } else {
-        document.getElementById("next").classList.remove("disabled")
-    }
+
     
 
     document.getElementById("previous").innerHTML = `Previous (${prev})`
@@ -148,6 +143,12 @@ function switch_slide() {
     fetchReadmeContent(owner, tag)
         .then(renderHTML)
         .catch(error => console.error('Error fetching README:', error));
+    if (slides[current_slide + 1]=="n/a;") {
+        document.getElementById("next").classList.add("disabled")
+        document.getElementById("next").innerHTML="Last slide..."
+    } else {
+        document.getElementById("next").classList.remove("disabled")
+    }
 }
 const accessToken = "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"
 // please don't take, from a burner account
