@@ -237,8 +237,6 @@ function getTotalBytes(data) {
 
 // Helper function to generate a random color
 function getRandomColor() {
-
-
     x = `rgb(${Math.round(Math.random() * 100)},${Math.round(Math.random() * 100) + 155},${Math.round(Math.random() * 150)});`;
     console.log(x)
     return x
@@ -383,7 +381,7 @@ document.addEventListener("DOMContentLoaded", function () {
         slides.push("n/a;")
         showDesc();
         document.getElementById("wrapper").style.display = "flex"
-    }, (Math.random() * 3000) + 4000)
+    }, (Math.random() * 1000) + 2000)
 
 
 })

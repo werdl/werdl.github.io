@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>werdl's Portfolio</title>
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore werdl's portfolio showcasing projects and skills in low level programming, and backend web development. Enjoy this website, which he painfully struggled over for an uncomfortably long">
     <!-- Add Font Awesome for icons -->
     <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      </script>
-      
+    </script>
+
     <style>
         @font-face {
             font-family: 'Retro Gaming';
@@ -148,6 +150,7 @@
         }
 
         @keyframes flash {
+
             0%,
             100% {
                 opacity: 0;
@@ -219,6 +222,7 @@
             pointer-events: none;
             background-color: #333;
         }
+
         .button {
             pointer-events: auto;
         }
@@ -232,9 +236,9 @@
     <div class="wrapper" id="wrapper">
         <div class="main">
             <div class="buttons">
-                    <button id="previous" class="button disabled" onclick="back_a_slide()">First slide...</button>
-                    <button id="next" class="button" onclick="switch_slide()">Next</button>
-                    <div id="projectcount"></div>
+                <button id="previous" class="button disabled" onclick="back_a_slide()">First slide...</button>
+                <button id="next" class="button" onclick="switch_slide()">Next</button>
+                <div id="projectcount"></div>
             </div>
             <div class="header" id="header">
             </div>
@@ -243,6 +247,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://werdl.github.io",
+      "@type": "Person",
+      "name": "werdl",
+      "url": "https://werdl.github.io",
+      "sameAs": ["https://github.com/werdl", "mailto:werdl_is_cool@outlook.com"]
+    }
+    </script>
 </body>
 
 </html>
