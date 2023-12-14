@@ -29,6 +29,7 @@ function shuffle(array) {
 
     return array;
 }
+
 slides = [
     "blueberryos;spartanproj/os",
     "dispatch-x;dispatch-x/api",
