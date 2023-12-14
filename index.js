@@ -50,7 +50,8 @@ slides = [
     "pyt;werdl/pyt",
     "samik;werdl/samik",
     "chat;werdl/chat",
-    "bottles;werdl/bottles"
+    "bottles;werdl/bottles",
+    "mtx;werd/mtx"
 ]
 
 
