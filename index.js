@@ -53,7 +53,9 @@ slides = [
     "bottles;werdl/bottles"
 ]
 
+
 function showDesc() {
+    
     document.getElementById("header").innerHTML=`    <h2>werdl's portfolio</h2>
     `
     document.getElementById("content").innerHTML=`
@@ -81,7 +83,8 @@ function showDesc() {
 
 function hideDesc() {
     document.getElementById("content").innerHTML = `
-    <div id="languageBox" class="language-box"></div>
+    <div id="languageBox" class="language-box"><div class="lds-ripple"><div></div><div></div></div></div>
+    </div>
     <br>
     <div id="commits"></div>
     <br>
@@ -90,7 +93,12 @@ function hideDesc() {
     <div id="readme"></div>
     `
 }
+
+function toggleLoadingAnimation() {
+}
+
 function switch_slide() {
+    toggleLoadingAnimation();
     hideDesc();
     current_slide++;
 
@@ -149,6 +157,7 @@ function switch_slide() {
     } else {
         document.getElementById("next").classList.remove("disabled")
     }
+    toggleLoadingAnimation();
 }
 const accessToken = "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"
 // please don't take, from a burner account
