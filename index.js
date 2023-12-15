@@ -68,7 +68,7 @@ function showDesc() {
         <li><a href="http://python.org">Python</a></li>
         <li><a href="http://vlang.io">V</a></li>
     </ul>
-    <br>
+    <br />
     <ul>
         <li><a href="http://git-scm.com">Git</a></li>
         <li><a href="http://github.com">Github</a></li>
@@ -76,7 +76,7 @@ function showDesc() {
         <li><a href="http://code.visualstudio.com">VS Code</a></li>
         <li><a href="http://neovim.io">Neovim</a></li>
     </ul>
-    <br>
+    <br />
     <ul>
         <li><a href="http://debian.org">Debian</a></li>    
         <li><a href="https://en.wikipedia.org/wiki/Unix">Unix</a></li>
@@ -87,11 +87,11 @@ function hideDesc() {
     document.getElementById("content").innerHTML = `
     <div id="languageBox" class="language-box"><div class="lds-ripple"><div></div><div></div></div></div>
     </div>
-    <br>
+    <br />
     <div id="commits"></div>
-    <br>
+    <br />
     <div id="desc"></div>
-    <br>
+    <br />
     <div id="readme"></div>
     `
 }
