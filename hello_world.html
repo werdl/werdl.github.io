@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Language Guessing Game</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #question-container {
+            margin: 20px auto;
+            display: table;
+            border: #007700 solid;
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+        }
+
+        #answers {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #answers li {
+            margin-bottom: 10px;
+        }
+
+        #result-container {
+            margin: 20px;
+        }
+
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #next-button {
+            background-color: #007700;
+            color: #00ff00;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #score-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+    </head>
+
+    <body>
+        <div id="score-container">
+            <span id="lives-count">5</span> lives left
+        </div>
+
+        <div id="question-container">
+            <pre><code id="question"></code>
+            </pre>
+            <ul id="answers"></ul>
+        </div>
+
+        <div id="result-container">
+            <p id="result"></p>
+        </div>
+    <script>
+        let wrong = 0;
+        // Add your JavaScript logic here
+        const questions = shuffle([
+            {
+                "question": "print('hello, world')",
+                "answers": ["scala", "smalltalk", "python"],
+                "answer": "python"
+            },
+            {
+                "question": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
+                "answers": ["java", "c#", "javascript"],
+                "answer": "java"
+            },
+            {
+                "question": "console.log(\"Hello, World!\");",
+                "answers": ["javascript", "python", "ruby"],
+                "answer": "javascript"
+            },
+            {
+                "question": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, World!\");\n    return 0;\n}",
+                "answers": ["c", "c++", "java"],
+                "answer": "c"
+            },
+            {
+                "question": "echo \"Hello, World!\";",
+                "answers": ["php", "bash", "perl"],
+                "answer": "bash"
+            },
+            {
+                "question": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;",
+                "answers": ["c++", "c#", "d"],
+                "answer": "c++"
+            },
+            {
+                "question": "io:format(\"Hello, World!~n\").",
+                "answers": ["erlang", "elixir", "haskell"],
+                "answer": "erlang",
+            },
+            {
+                "question": "putStrLn \"Hello, World!\"",
+                "answers": ["haskell", "python", "scala"],
+                "answer": "haskell",
+            },
+            {
+                "question": "object HelloWorld extends App {\n  println(\"Hello, World!\")\n}",
+                "answers": ["scala", "java", "kotlin"],
+                "answer": "scala",
+            },
+            {
+                "question": "fun main() {\n    println(\"Hello, World!\")\n}",
+                "answers": ["kotlin", "java", "groovy"],
+                "answer": "kotlin",
+            },
+            {
+                "question": "print(\"Hello, World!\")",
+                "answers": ["swift", "objective-c", "rust"],
+                "answer": "swift",
+            },
+            {
+                "question": "fn main() {\n    println!(\"Hello, World!\");\n}",
+                "answers": ["rust", "c", "vlang"],
+                "answer": "rust",
+            },
+            {
+                "question": "#import <Foundation/Foundation.h>\n\nint main() {\n    @autoreleasepool {\n        NSLog(@\"Hello, World!\");\n    }\n    return 0;\n}",
+                "answers": ["objective-c", "swift", "c"],
+                "answer": "objective-c",
+            },
+            {
+                "question": "println 'Hello, World!'",
+                "answers": ["groovy", "java", "kotlin"],
+                "answer": "groovy",
+            },
+            {
+                "question": "IDENTIFICATION DIVISION.\nPROGRAM-ID. HelloWorld.\nPROCEDURE DIVISION.\n    DISPLAY 'Hello, World!'.\n    STOP RUN.",
+                "answers": ["cobol", "fortran", "pl/i"],
+                "answer": "cobol",
+            },
+            {
+                "question": "PROGRAM HelloWorld\n    WRITE(*,*) 'Hello, World!'\nEND PROGRAM HelloWorld",
+                "answers": ["fortran", "cobol", "pl/i"],
+                "answer": "fortran",
+            },
+            {
+                "question": "BEGIN\n    OUTSTRING(\"Hello, World!\");\nEND.",
+                "answers": ["algol 68", "algol 60", "fortran"],
+                "answer": "algol 68",
+            },
+            {
+                "question": "fn main() {\n    println('Hello, World!')\n}",
+                "answers": ["vlang", "c", "python"],
+                "answer": "vlang",
+            },
+            {
+                "question": "function main(): void {\n    console.log('Hello, World!');\n}",
+                "answers": ["typescript", "flow", "javascript"],
+                "answer": "typescript",
+            },
+            {
+                "question": "print 'Hello, World!';",
+                "answers": ["perl", "python", "ruby"],
+                "answer": "perl",
+            },
+            {
+                "question": "puts 'Hello, World!'",
+                "answers": ["ruby", "python", "perl"],
+                "answer": "ruby",
+            },
+            {
+                "question": "echo 'Hello, World!';",
+                "answers": ["php", "javascript", "python"],
+                "answer": "php",
+            },
+            {
+                "question": "section .data\n    hello db 'Hello, World!',0\nsection .text\n    global _start\n_start:\n    ; write to stdout\n    mov eax, 4\n    mov ebx, 1\n    mov ecx, hello\n    mov edx, 13\n    int 0x80\n    ; exit\n    mov eax, 1\n    xor ebx, ebx\n    int 0x80",
+                "answers": ["x86", "algol 68", "arm"],
+                "answer": "x86",
+            },
+            {
+                "question": ".section .data\n    hello: .asciz 'Hello, World!'\n.section .text\n    .global _start\n_start:\n    ; write to stdout\n    mov r0, #1\n    ldr r1, =hello\n    ldr r2, =13\n    mov r7, #4\n    swi 0\n    ; exit\n    mov r7, #1\n    mov r0, #0\n    swi 0",
+                "answers": ["arm", "x86", "mips"],
+                "answer": "arm",
+            },
+            {
+                "question": ".data\n    hello: .asciiz 'Hello, World!'\n.text\n    main:\n        # write to stdout\n        li $v0, 4\n        la $a0, hello\n        li $v1, 13\n        syscall\n        # exit\n        li $v0, 10\n        syscall",
+                "answers": ["mips", "arm", "powerpc"],
+                "answer": "mips",
+            }
+        ]);
+
+        let currentQuestionIndex = 0;
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        function displayQuestion() {
+            const questionElement = document.getElementById("question");
+            const answersElement = document.getElementById("answers");
+
+            questionElement.textContent = questions[currentQuestionIndex].question;
+
+            answersElement.innerHTML = "";
+            const shuffledAnswers = shuffle(questions[currentQuestionIndex].answers);
+            shuffledAnswers.forEach(answer => {
+
+                const li = document.createElement("li");
+                li.textContent = answer;
+                li.addEventListener("click", checkAnswer);
+                answersElement.appendChild(li);
+            });
+        }
+
+        function checkAnswer(event) {
+            const selectedAnswer = event.target.textContent;
+            const resultElement = document.getElementById("result");
+
+            if (selectedAnswer === questions[currentQuestionIndex].answer) {
+                resultElement.textContent = "Correct!";
+            } else {
+                resultElement.textContent = "Wrong!";
+                wrong++;
+                let t = parseInt(document.getElementById("lives-count").innerText) - 1
+                document.getElementById("lives-count").innerText = t;
+            }
+
+            resultElement.style.display = "block";
+
+            const answerElements = document.querySelectorAll("#answers li");
+            answerElements.forEach(answerElement => {
+                answerElement.removeEventListener("click", checkAnswer);
+            });
+            setTimeout(nextQuestion, 1000);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+                document.getElementById("result").style.display = "none";
+                if (wrong >= 5) {
+                    document.getElementById("result-container").innerHTML = `You got 5 wrong. <br><h2>FAIL</h2>`;
+                    document.getElementById("question-container").style.display = "none";
+                }
+            } else {
+                document.getElementById("question-container").style.display = "none";
+                if (wrong < 5) {
+                    document.getElementById("result-container").innerHTML = `You got ${currentQuestionIndex-wrong}/${questions.length} correct.<br><h2>PASS</h2>`;
+                } else {
+                    document.getElementById("result-container").innerHTML = `You got 5 wrong. <br><h2>FAIL</h2>`;
+
+                }
+            }
+        }
+
+        displayQuestion();
+
+    </script>
+</body>
+
+</html>
